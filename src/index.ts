@@ -7,12 +7,16 @@ import tseslint from "typescript-eslint";
 export const base = tseslint.config(
     ...tseslint.configs.recommended,
     {
-        ignores: ["eslint.config.mjs", "dist/**/*"]
+        ignores: ["eslint.config.mjs", "tsconfig.json", "tsconfig.eslint.json", "vitest.config.ts", "dist/**/*"]
     },
     {
+        files: ["**/*.mjs", "**/*.ts"],
         languageOptions: {
+            parser: tseslint.parser,
             parserOptions: {
-                project: true
+                project: ["./tsconfig.eslint.json", "./tsconfig.json"],
+                tsconfigRootDir: process.cwd(),
+                warnOnUnsupportedTypeScriptVersion: false
             }
         }
     }
